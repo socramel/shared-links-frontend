@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
-import { getAllLinksService } from "../services";
+import { getAllLinksService, getUserLinksService } from "../services/index";
 
-const useLinks = () => {
+const useLinks = (id) => {
   const [links, setLinks] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
@@ -11,7 +11,9 @@ const useLinks = () => {
       try {
         setLoading(true);
 
-        const data = await getAllLinksService();
+        const data = id
+          ? await getUserLinksService(id)
+          : await getAllLinksService();
 
         setLinks(data);
       } catch (error) {
@@ -22,9 +24,17 @@ const useLinks = () => {
     };
 
     loadLinks();
-  }, []);
+  }, [id]);
 
-  return { links, loading, error };
+  const addLink = (link) => {
+    setLinks([link, ...links]);
+  };
+
+  const removeLink = (id) => {
+    setLinks(links.filter((link) => link.id !== id));
+  };
+
+  return { links, loading, error, addLink, removeLink };
 };
 
 export default useLinks;

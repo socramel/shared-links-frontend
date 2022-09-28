@@ -1,11 +1,11 @@
-import { Enlace } from "./Enlace";
+import { Linka } from "./Link";
 
-export const LinkList = ({ links }) => {
+export const LinkList = ({ links, removeLink }) => {
   return links.length ? (
     <ul>
       {links.map((link) => (
         <li key={link.id}>
-          <Enlace link={link} />
+          <Linka link={link} removeLink={removeLink} />
         </li>
       ))}
     </ul>
