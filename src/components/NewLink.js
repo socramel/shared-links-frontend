@@ -14,12 +14,18 @@ export const NewLink = ({ addLink }) => {
       setSending(true);
 
       const data = new FormData(e.target);
-      const link = await sendLinkService({ data, token });
+      const url = data.get("url");
+      const title = data.get("title");
+      const description = data.get("description");
+
+      const link = await sendLinkService({
+        data: { url, title, description },
+        token,
+      });
 
       addLink(link);
 
-     // e.target.reset();
-     
+      // e.target.reset();
     } catch (error) {
       setError(error.message);
     } finally {

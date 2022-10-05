@@ -1,9 +1,9 @@
 import { useContext, useState } from "react";
 import { AuthContext } from "../context/AuthContext";
 import { Link, useNavigate } from "react-router-dom";
-import { deleteLinkService } from "../services";
+import { deleteLinkService, voteLinkService } from "../services";
 
-export const Linka = ({ link, removeLink }) => {
+export const Linka = ({ link, removeLink, voteLink }) => {
   const navigate = useNavigate();
   const { user, token } = useContext(AuthContext);
   const [error, setError] = useState("");
@@ -21,17 +21,31 @@ export const Linka = ({ link, removeLink }) => {
     }
   };
 
+  const handleVote = async () => {
+    try {
+      await voteLinkService({ id: link.id, token });
+      voteLink(link.id);
+    } catch (error) {
+      setError(error.message);
+    }
+  };
+
   return (
     <article>
       <p>{link.url}</p>
       <p>{link.title}</p>
       <p>{link.description}</p>
 
+      <p>Votes: {link.votes}</p>
+
+      {user && user.id !== link.user_id ? (
+        <button onClick={handleVote}>Votar</button>
+      ) : null}
+
       <p>
-        Link creado por <Link to={`/user/${link.user_id}`}>{link.name}</Link> el{" "}
-        <Link to={`/links/${link.id}`}>
-          {new Date(link.created_at).toLocaleString()}
-        </Link>
+        <Link to={`/links/${link.id}`}>Link</Link> creado por{" "}
+        <Link to={`/user/${link.user_id}`}>{link.name}</Link> el{" "}
+        {new Date(link.created_at).toLocaleString()}
       </p>
       {user && user.id === link.user_id ? (
         <section>
@@ -43,9 +57,9 @@ export const Linka = ({ link, removeLink }) => {
           >
             Eliminar link
           </button>
-          {error ? <p>{error}</p> : null}
         </section>
       ) : null}
+      {error ? <p style={{ color: "red" }}>{error}</p> : null}
     </article>
   );
 };

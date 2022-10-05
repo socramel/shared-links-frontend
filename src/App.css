@@ -1,14 +1,42 @@
-* {
-    margin: 0;
-    padding: 0;
+ * {
+    margin: 20;
+    padding: 20;
     box-sizing: border-box;
+  }
+
+  header {
+    background-color: rgb(223, 232, 236);
+    font-family: 'Metal Mania', cursive;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+  }
+
+  footer {
+    text-align: center;
+    background-color: black;
+    color: white;
+    margin: 20;
+    padding: 20;
+  }
+
+  nav {
+    text-align: end;
   }
   
   html {
     --bg: #d9d9db;
     --bright: #ffffff;
-    --action: #00acee;
+    --action: #eb0d87;
     --error: #c84d4d;
+  }
+
+  section {
+    margin-bottom: 50px;
+  }
+
+  ul {
+    list-style: none;
   }
   
   a {
@@ -41,7 +69,7 @@
   
   .app footer {
     background-color: var(--bg);
-    padding: 2rem;
+    padding: 4rem;
   }
   
   main.app > section {
@@ -66,13 +94,14 @@
   
   main.app > section.error p {
     margin-bottom: 1rem;
+    ;
   }
   
   main.app > section h1 {
     margin-bottom: 1rem;
   }
   
-  ul.tweet-list {
+  ul.links-list {
     list-style: none;
     gap: 1rem;
   }
@@ -125,4 +154,4 @@
     background-color: var(--action);
     color: var(--bright);
     border: none;
-  }
+  } 

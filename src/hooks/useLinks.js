@@ -34,7 +34,19 @@ const useLinks = (id) => {
     setLinks(links.filter((link) => link.id !== id));
   };
 
-  return { links, loading, error, addLink, removeLink };
+  const voteLink = (id) => {
+    setLinks(
+      links.map((link) => {
+        if (link.id === id) {
+          link.votes = link.votes + 1;
+        }
+
+        return link;
+      })
+    );
+  };
+
+  return { links, loading, error, addLink, removeLink, voteLink };
 };
 
 export default useLinks;

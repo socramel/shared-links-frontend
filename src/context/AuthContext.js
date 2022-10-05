@@ -13,7 +13,7 @@ export const AuthProviderComponent = ({ children }) => {
   useEffect(() => {
     const getUserData = async () => {
       try {
-        const data = await getMyUserDataService( token );
+        const data = await getMyUserDataService(token);
         setUser(data);
       } catch (error) {
         logout();
